@@ -41,11 +41,25 @@ async function run() {
             res.send(result);
         })
 
-        app.get('/artItem/:id', async(req, res) => {
+        app.get('/artItem/:id', async (req, res) => {
             const id = req.params.id;
-            const query = {_id: new ObjectId(id)}
+            const query = { _id: new ObjectId(id) }
             const singleArt = await artCollection.findOne(query)
             res.send(singleArt);
+        })
+
+        app.get("/myArt/:email", async (req, res) => {
+            const result = await artCollection.find({
+                user_email: req.params.email
+            }).toArray();
+            res.send(result)
+        })
+
+        app.delete('/artItem/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) }
+            const deletedArt = await artCollection.deleteOne(query)
+            res.send(deletedArt);
         })
 
 
