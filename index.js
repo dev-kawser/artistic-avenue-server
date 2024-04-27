@@ -62,6 +62,27 @@ async function run() {
             res.send(deletedArt);
         })
 
+        app.put('/newItem/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: new ObjectId(id) };
+            const options = { upsert: true };
+            const updateArt = req.body;
+            const upArt = {
+                $set: {
+                    item_name: updateArt.item_name,
+                    subcategory_Name: updateArt.subcategory_Name,
+                    short_description: updateArt.short_description,
+                    price: updateArt.price,
+                    rating: updateArt.rating,
+                    customization_example: updateArt.customization_example, processing_time: updateArt.processing_time,
+                    stock_status: updateArt.stock_status,
+                    image_url: updateArt.image_url
+                }
+            }
+            const result = await artCollection.updateOne(filter, upArt, options)
+            res.send(result);
+        })
+
 
         // Send a ping to confirm a successful connection
         // await client.db("admin").command({ ping: 1 });
