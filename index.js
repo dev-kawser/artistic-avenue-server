@@ -49,6 +49,15 @@ async function run() {
             res.send(result);
         })
 
+        app.get('/artItem/:subcategory_Name', async (req, res) => {
+            const subcategory_Name = req.params.subcategory_Name;
+            const query = { subcategory_Name: (subcategory_Name) }
+            const matchingArt = await artCollection.find(query).toArray();
+            res.send(matchingArt);
+        })
+
+        // newHomeEnd
+
         app.get('/artItem/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) }
