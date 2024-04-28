@@ -28,6 +28,7 @@ async function run() {
         // await client.connect();
 
         const artCollection = client.db('artDB').collection('art');
+        const artNewCollection = client.db('artDB').collection('craft');
 
         app.post('/newItem', async (req, res) => {
             const newItem = req.body;
@@ -37,6 +38,13 @@ async function run() {
 
         app.get('/newItem', async (req, res) => {
             const cursor = artCollection.find();
+            const result = await cursor.toArray();
+            res.send(result);
+        })
+
+        // newHome
+        app.get('/allItem', async (req, res) => {
+            const cursor = artNewCollection.find();
             const result = await cursor.toArray();
             res.send(result);
         })
