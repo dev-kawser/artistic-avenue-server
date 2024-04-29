@@ -58,7 +58,7 @@ async function run() {
 
         // newHomeEnd
 
-        app.get('/artItem/:id', async (req, res) => {
+        app.get('/newItem/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) }
             const singleArt = await artCollection.findOne(query)
